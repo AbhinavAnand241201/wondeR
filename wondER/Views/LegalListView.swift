@@ -72,15 +72,4 @@ struct LegalListView: View {
             ThirdPartySoftwareView()
         }
     }
-}
-
-// Placeholder views for navigation
-struct TermsOfServiceView: View {
-    var body: some View { Text("Terms of Service") }
-}
-struct PrivacyPolicyView: View {
-    var body: some View { Text("Privacy Policy") }
-}
-struct ThirdPartySoftwareView: View {
-    var body: some View { Text("Third Party Software") }
 } 
