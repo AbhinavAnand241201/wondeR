@@ -33,29 +33,9 @@ struct SettingsView: View {
                         .padding(.horizontal)
                         .padding(.top, 4)
                         if textMessagesOn {
-                            Text("By turning on this option, you agree to receive recurring and automated marketing messages from Wonder. Message & data rates may apply. View ")
-                                .font(.system(size: 13))
-                                .foregroundColor(.textGray)
-                                +
-                            Text("Terms & Conditions")
-                                .font(.system(size: 13))
-                                .foregroundColor(.wonderGreen)
-                                .underline()
-                                +
-                            Text(" and our ")
-                                .font(.system(size: 13))
-                                .foregroundColor(.textGray)
-                                +
-                            Text("Privacy Policy")
-                                .font(.system(size: 13))
-                                .foregroundColor(.wonderGreen)
-                                .underline()
-                                +
-                            Text(".")
-                                .font(.system(size: 13))
-                                .foregroundColor(.textGray)
-                            .padding(.horizontal)
-                            .padding(.top, 4)
+                            MarketingLegalText()
+                                .padding(.horizontal)
+                                .padding(.top, 4)
                         }
                         Divider().background(Color.gray.opacity(0.3)).padding(.top, 16)
                         // Legal Section
@@ -120,5 +100,27 @@ struct WonderToggleRow: View {
                 .toggleStyle(SwitchToggleStyle(tint: .wonderGreen))
         }
         .padding(.vertical, 12)
+    }
+}
+
+struct MarketingLegalText: View {
+    var body: some View {
+        Text("By turning on this option, you agree to receive recurring and automated marketing messages from Wonder. Message & data rates may apply. View ")
+            .font(.system(size: 13))
+            .foregroundColor(.textGray)
+        + Text("Terms & Conditions")
+            .font(.system(size: 13))
+            .foregroundColor(.wonderGreen)
+            .underline()
+        + Text(" and our ")
+            .font(.system(size: 13))
+            .foregroundColor(.textGray)
+        + Text("Privacy Policy")
+            .font(.system(size: 13))
+            .foregroundColor(.wonderGreen)
+            .underline()
+        + Text(".")
+            .font(.system(size: 13))
+            .foregroundColor(.textGray)
     }
 } 
