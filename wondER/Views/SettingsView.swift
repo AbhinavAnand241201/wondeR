@@ -2,114 +2,123 @@ import SwiftUI
 
 struct SettingsView: View {
     @State private var pushNotificationsOn = true
-    @State private var textMessageOn = false
-    @Environment(\.presentationMode) var presentationMode
-
+    @State private var textMessagesOn = false
+    
     var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            HStack {
-                Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.green)
-                        .padding()
-                }
-                Spacer()
-                Text("SETTINGS")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                Spacer()
-                Color.clear.frame(width: 44)
-            }
-            .background(Color(.systemGroupedBackground))
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 32) {
-                    // Delivery Info
-                    Text("Delivery updates are core to the Wonder experience and can't be turned off. If you select Text Message, message and data rates may apply.")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                        .padding(.top)
-
-                    // Marketing Section
-                    VStack(alignment: .leading, spacing: 16) {
+        ZStack {
+            Color.beigeBackground.ignoresSafeArea()
+            VStack(spacing: 0) {
+                WonderNavBar(title: "SETTINGS")
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        // Delivery Updates Section
+                        Text("Delivery updates are core to the Wonder experience and can't be turned off. If you select Text Message, message and data rates may apply.")
+                            .font(.system(size: 13))
+                            .foregroundColor(.textGray)
+                            .padding(.horizontal)
+                            .padding(.top, 8)
+                            .padding(.bottom, 8)
+                        Divider().background(Color.gray.opacity(0.3))
+                        // Marketing Section
                         Text("MARKETING")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                        HStack {
-                            Text("Push Notifications")
-                            Spacer()
-                            Toggle("", isOn: $pushNotificationsOn)
-                                .labelsHidden()
-                                .toggleStyle(SwitchToggleStyle(tint: .green))
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.textBlack)
+                            .padding(.horizontal)
+                            .padding(.top, 16)
+                        VStack(spacing: 0) {
+                            WonderToggleRow(title: "Push Notifications", isOn: $pushNotificationsOn)
+                            Divider().background(Color.gray.opacity(0.3))
+                            WonderToggleRow(title: "Text Message", isOn: $textMessagesOn)
                         }
-                        HStack {
-                            Text("Text Message")
-                            Spacer()
-                            Toggle("", isOn: $textMessageOn)
-                                .labelsHidden()
-                                .toggleStyle(SwitchToggleStyle(tint: .green))
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                        if textMessagesOn {
+                            Text("By turning on this option, you agree to receive recurring and automated marketing messages from Wonder. Message & data rates may apply. View ")
+                                .font(.system(size: 13))
+                                .foregroundColor(.textGray)
+                                +
+                            Text("Terms & Conditions")
+                                .font(.system(size: 13))
+                                .foregroundColor(.wonderGreen)
+                                .underline()
+                                +
+                            Text(" and our ")
+                                .font(.system(size: 13))
+                                .foregroundColor(.textGray)
+                                +
+                            Text("Privacy Policy")
+                                .font(.system(size: 13))
+                                .foregroundColor(.wonderGreen)
+                                .underline()
+                                +
+                            Text(".")
+                                .font(.system(size: 13))
+                                .foregroundColor(.textGray)
+                            .padding(.horizontal)
+                            .padding(.top, 4)
                         }
-                        if textMessageOn {
-                            Text("By turning on this option, you agree to receive reoccurring and automated marketing messages from Wonder. Message & data rates may apply. View Terms & Conditions and our Privacy Policy.")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.horizontal)
-
-                    // Legal Section
-                    VStack(alignment: .leading, spacing: 8) {
+                        Divider().background(Color.gray.opacity(0.3)).padding(.top, 16)
+                        // Legal Section
+                        Text("LEGAL")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.textBlack)
+                            .padding(.horizontal)
+                            .padding(.top, 16)
                         NavigationLink(destination: LegalListView()) {
                             HStack {
                                 Text("Legal")
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.textBlack)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.green)
+                                    .foregroundColor(.wonderGreen)
                             }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal)
                         }
-                    }
-                    .padding(.horizontal)
-
-                    // Account Section
-                    VStack(alignment: .leading, spacing: 8) {
+                        Divider().background(Color.gray.opacity(0.3))
+                        // Account Section
                         Text("ACCOUNT")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.textBlack)
+                            .padding(.horizontal)
+                            .padding(.top, 16)
                         NavigationLink(destination: Text("Delete Account Screen")) {
                             HStack {
                                 Text("Delete account")
-                                    .foregroundColor(.pink)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.textRed)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.green)
+                                    .foregroundColor(.wonderGreen)
                             }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal)
                         }
+                        Divider().background(Color.gray.opacity(0.3))
+                        Spacer(minLength: 24)
                     }
-                    .padding(.horizontal)
                 }
+                WonderFooter()
             }
-
-            Spacer()
-
-            // Bottom Bar
-            HStack {
-                Image("wonder_logo") // Add this asset
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                Text("Wonder")
-                    .font(.subheadline)
-                Spacer()
-                Text("curated by")
-                    .font(.footnote)
-                Image("mobbin_logo") // Add this asset
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            .padding()
-            .background(Color(.secondarySystemBackground))
         }
         .navigationBarHidden(true)
+    }
+}
+
+struct WonderToggleRow: View {
+    let title: String
+    @Binding var isOn: Bool
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.system(size: 15))
+                .foregroundColor(.textBlack)
+            Spacer()
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+                .toggleStyle(SwitchToggleStyle(tint: .wonderGreen))
+        }
+        .padding(.vertical, 12)
     }
 } 
